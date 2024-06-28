@@ -1,0 +1,1 @@
+# Scripts para generación de contenido usando modelos de transformers

@@ -1,0 +1,1 @@
+# Scripts para extracción de datos usando APIs públicas
