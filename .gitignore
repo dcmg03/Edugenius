@@ -1,0 +1,19 @@
+# Entornos virtuales
+venv/
+*.env
+
+# Archivos de configuración de IDEs
+.idea/
+
+# Archivos de sistema
+*.DS_Store
+Thumbs.db
+
+# Archivos de caché y logs
+__pycache__/
+*.pyc
+*.log
+
+# Archivos temporales
+*.tmp
+*.swp
