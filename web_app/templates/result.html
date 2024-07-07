@@ -2,9 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Bienvenido</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-
+<h1>Bienvenido, {{ username }}!</h1>
+<p>Has iniciado sesión con éxito.</p>
 </body>
 </html>
