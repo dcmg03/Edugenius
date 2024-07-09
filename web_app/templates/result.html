@@ -2,11 +2,23 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bienvenido - EduGenius</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-<h1>Bienvenido a EduGenius, {{ username }}!</h1>
-<p>Has iniciado sesión con éxito.</p>
+    <h1>Bienvenido a EduGenius, {{ username }}!</h1>
+    <p>Has iniciado sesión con éxito.</p>
+
+    <form action="{{ url_for('ask_question', username=username) }}" method="post">
+        <label for="question">Escribe tu pregunta:</label>
+        <textarea id="question" name="question" rows="4" cols="50"></textarea>
+        <button type="submit">Enviar Pregunta</button>
+    </form>
+
+    {% if response %}
+        <h2>Respuesta:</h2>
+        <p>{{ response }}</p>
+    {% endif %}
 </body>
 </html>

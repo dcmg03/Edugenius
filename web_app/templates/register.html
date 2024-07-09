@@ -5,63 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro - EduGenius</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-    <style>
-        .interest {
-            display: inline-block;
-            width: 100px;
-            margin: 10px;
-            text-align: center;
-        }
-        .interest img {
-            width: 100px;
-            height: 100px;
-            border-radius: 10px;
-        }
-    </style>
 </head>
 <body>
-<h1>Crear una cuenta personal nueva</h1>
-<form action="/register" method="post">
-    <label for="username">Nombre de usuario:</label>
-    <input type="text" id="username" name="username" required>
-    <br>
-    <label for="password">Crea una contraseña:</label>
-    <input type="password" id="password" name="password" required>
-    <br>
-    <label for="email">Correo electrónico:</label>
-    <input type="email" id="email" name="email" required>
-    <br>
-    <label for="birthdate">Fecha de nacimiento:</label>
-    <input type="date" id="birthdate" name="birthdate" required>
-    <br>
-    <label for="gender">Género:</label>
-    <select id="gender" name="gender" required>
-        <option value="Mujer">Mujer</option>
-        <option value="Hombre">Hombre</option>
-        <option value="Otro">Otro</option>
-    </select>
-    <br>
-    <label for="interests">¿Qué te interesa?</label>
-    <div class="interests">
-        <label class="interest">
-            <input type="checkbox" name="interests" value="Matemáticas">
-            <img src="/matematicas.jpg" >
-            <span>Matemáticas</span>
-        </label>
-        <label class="interest">
-            <input type="checkbox" name="interests" value="Inglés">
-            <img src="/ingles.png" >
-            <span>Inglés</span>
-        </label>
-        <label class="interest">
-            <input type="checkbox" name="interests" value="Historia">
-             <img src="{{ url_for('static', filename='historia.jpg') }}">
-            <span>Historia</span>
-        </label>
-        <!-- Agrega más intereses según sea necesario -->
-    </div>
-    <br>
-    <button type="submit">Continuar</button>
-</form>
+    <h1>Crear una cuenta personal nueva</h1>
+    <form action="/register" method="post">
+        <label for="username">Nombre de usuario:</label>
+        <input type="text" id="username" name="username" required>
+        <br>
+        <label for="password">Crea una contraseña:</label>
+        <input type="password" id="password" name="password" required>
+        <br>
+        <label for="email">Correo electrónico:</label>
+        <input type="email" id="email" name="email" required>
+        <br>
+        <label for="birthdate">Fecha de nacimiento:</label>
+        <input type="date" id="birthdate" name="birthdate" required>
+        <br>
+        <label for="gender">Género:</label>
+        <select id="gender" name="gender" required>
+            <option value="Mujer">Mujer</option>
+            <option value="Hombre">Hombre</option>
+            <option value="Otro">Otro</option>
+        </select>
+        <br>
+        <label for="interests">¿Qué te interesa?</label>
+        <div class="interests">
+            <label class="interest">
+                <input type="checkbox" name="interests" value="Matemáticas">
+                <img src="/matematicas.jpg" alt="Matemáticas">
+                <span>Matemáticas</span>
+            </label>
+            <label class="interest">
+                <input type="checkbox" name="interests" value="Inglés">
+                <img src="/ingles.png" alt="Inglés">
+                <span>Inglés</span>
+            </label>
+            <label class="interest">
+                <input type="checkbox" name="interests" value="Historia">
+                <img src="{{ url_for('static', filename='historia.jpg') }}" alt="Historia">
+                <span>Historia</span>
+            </label>
+            <!-- Agrega más intereses según sea necesario -->
+        </div>
+        <br>
+        <button type="submit">Continuar</button>
+    </form>
 </body>
 </html>

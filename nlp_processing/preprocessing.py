@@ -7,3 +7,4 @@ def tokenize_text(text):
     doc = nlp(text)
     tokens = [token.text for token in doc]
     return tokens
+#que las respuestas no se repitan, tiene que ser generativos
