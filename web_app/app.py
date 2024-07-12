@@ -3,12 +3,25 @@ from transformers import pipeline
 from flask_migrate import Migrate
 from models import db, User, UserProfile, UserRequest
 import datetime
+import os
 
 app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///instance/users.db'
+basedir = os.path.abspath(os.path.dirname(__file__))
+instance_path = os.path.join(basedir, 'instance')
+database_path = os.path.join(instance_path, 'users.db')
+
+# Crear el directorio 'instance' si no existe
+if not os.path.exists(instance_path):
+    os.makedirs(instance_path)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = f'sqlite:///{database_path}'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 migrate = Migrate(app, db)
+
+# Crear el archivo de la base de datos si no existe
+if not os.path.exists(database_path):
+    open(database_path, 'w').close()
 
 # Configurar el pipeline de Hugging Face para generación de texto
 generator = pipeline('text-generation', model='gpt2')
