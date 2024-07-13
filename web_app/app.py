@@ -1,9 +1,9 @@
+import os
 from flask import Flask, render_template, request, redirect, url_for
 from transformers import pipeline
 from flask_migrate import Migrate
 from models import db, User, UserProfile, UserRequest
 import datetime
-import os
 
 app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -23,11 +23,18 @@ migrate = Migrate(app, db)
 if not os.path.exists(database_path):
     open(database_path, 'w').close()
 
+with app.app_context():
+    db.create_all()
+
 # Configurar el pipeline de Hugging Face para generación de texto
 generator = pipeline('text-generation', model='gpt2')
 
 @app.route('/')
 def index():
+    return render_template('index.html')
+
+@app.route('/home')
+def home():
     return render_template('index.html')
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -54,28 +61,32 @@ def register():
         interests = ', '.join(interests)
 
         if User.query.filter_by(username=username).first():
-            return "El nombre de usuario ya existe, por favor intenta con otro."
-        else:
-            new_user = User(username=username, password=password)
-            db.session.add(new_user)
-            db.session.commit()
+            return "El usuario ya existe."
 
-            new_profile = UserProfile(
-                user_id=new_user.id,
-                email=email,
-                birthdate=datetime.datetime.strptime(birthdate, '%Y-%m-%d').date(),
-                gender=gender,
-                interests=interests
-            )
-            db.session.add(new_profile)
-            db.session.commit()
+        new_user = User(username=username, password=password)
+        db.session.add(new_user)
+        db.session.commit()
 
-            return redirect(url_for('result', username=username))
+        new_profile = UserProfile(
+            user_id=new_user.id,
+            email=email,
+            birthdate=datetime.datetime.strptime(birthdate, '%Y-%m-%d').date(),
+            gender=gender,
+            interests=interests
+        )
+        db.session.add(new_profile)
+        db.session.commit()
+
+        return redirect(url_for('result', username=username))
     return render_template('register.html')
 
 @app.route('/result/<username>', methods=['GET', 'POST'])
 def result(username):
-    return render_template('result.html', username=username)
+    response = None
+    if request.method == 'POST':
+        question = request.form['question']
+        response = get_huggingface_response(question)
+    return render_template('result.html', username=username, response=response)
 
 @app.route('/ask_question/<username>', methods=['POST'])
 def ask_question(username):
