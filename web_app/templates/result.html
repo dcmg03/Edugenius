@@ -3,15 +3,6 @@
 {% block title %}Bienvenido - EduGenius{% endblock %}
 
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido - EduGenius</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
     <h1>Bienvenido a EduGenius, {{ username }}!</h1>
     <p>Has iniciado sesión con éxito.</p>
 
@@ -25,6 +16,4 @@
         <h2>Respuesta:</h2>
         <p>{{ response }}</p>
     {% endif %}
-</body>
-</html>
 {% endblock %}
