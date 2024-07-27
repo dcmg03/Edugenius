@@ -1,14 +1,22 @@
+import sys
 import os
-import openai
+import concurrent.futures
+from tqdm import tqdm
+
+# Agrega el directorio raíz del proyecto a sys.path
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+
 from flask import Flask, render_template, request, redirect, url_for
 from flask_migrate import Migrate
 from models import db, User, UserProfile, UserRequest
+from data_extraction.scraper import get_all_content
+from nlp_processing.preprocessing import classify_content
+import datetime
+import openai
 import time
-import requests
-from bs4 import BeautifulSoup
 
 # Configuración de la clave API de OpenAI
-openai.api_key = 'clave'
+openai.api_key = 'sk-proj-OWJRP7Wtln9j077BFgoVT3BlbkFJD7l6r6BuCX4JwavCenSX'
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -31,23 +39,24 @@ if not os.path.exists(database_path):
 with app.app_context():
     db.create_all()
 
-def scrape_articles(topic):
-    url = f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    articles = []
-    for item in soup.select('.mw-parser-output p'):
-        text = item.get_text()
-        if text:
-            articles.append(text.strip())
-    return articles[:5]  # Devuelve los primeros 5 párrafos
+def fetch_and_classify_content():
+    print("Iniciando el scraping de contenido...")
+    all_content = get_all_content()
+    print("Scraping completado. Iniciando la clasificación de contenido con spaCy...")
+    classified_content = classify_content(all_content)
+    print("Clasificación completada.")
+    return classified_content
 
 @app.route('/')
 def index():
-    topic = request.args.get('topic', 'Mathematics')  # Tema predeterminado
-    articles = scrape_articles(topic)
-    return render_template('index.html', articles=articles, topic=topic)
+    try:
+        with concurrent.futures.ThreadPoolExecutor() as executor:
+            future = executor.submit(fetch_and_classify_content)
+            classified_content = future.result()
+        return render_template('index.html', classified_content=classified_content)
+    except Exception as e:
+        print(f"Error al cargar el contenido: {e}")
+        return render_template('index.html', classified_content={"historia": [], "matematica": [], "ingles": []})
 
 @app.route('/home')
 def home():
@@ -140,7 +149,7 @@ def get_gpt35_response(question):
                 {"role": "user", "content": question}
             ]
         )
-        return response.choices[0].message['content']
+        return response['choices'][0]['message']['content']
     except openai.OpenAIError as e:
         print(f"OpenAI API error: {e}")
     except Exception as e:
