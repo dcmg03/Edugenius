@@ -16,7 +16,7 @@ import openai
 import time
 
 # Configuración de la clave API de OpenAI
-openai.api_key = ''
+openai.api_key = 'clave'
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -86,7 +86,7 @@ def register():
         interests = ', '.join(interests)
 
         if User.query.filter_by(username=username).first():
-            return "El usuario ya existe."
+            return "El usuario ya existe, Cambia las credenciales.."
 
         new_user = User(username=username, password=password)
         db.session.add(new_user)
