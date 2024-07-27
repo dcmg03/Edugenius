@@ -16,7 +16,7 @@ import openai
 import time
 
 # Configuración de la clave API de OpenAI
-openai.api_key = 'Aqui va el API KEY TERMINADA EN SX'
+openai.api_key = ''
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
