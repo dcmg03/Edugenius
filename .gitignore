@@ -17,3 +17,7 @@ __pycache__/
 # Archivos temporales
 *.tmp
 *.swp
+
+#Clave del API
+.env
+.env
