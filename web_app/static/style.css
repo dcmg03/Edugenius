@@ -9,17 +9,21 @@ body {
 
 .container {
     text-align: center;
+    padding: 20px;
 }
 
 input[type="text"],
 input[type="email"],
 input[type="password"],
-textarea {
+input[type="date"],
+textarea,
+select {
     width: 100%;
     padding: 10px;
     margin: 10px 0;
     border: none;
     border-radius: 5px;
+    font-size: 16px;
 }
 
 .button, .btn {
@@ -59,4 +63,16 @@ textarea {
     padding: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgb(0, 0, 0);
+}
+
+label {
+    margin-top: 20px;
+    font-weight: bold;
+    display: block;
+    text-align: left;
+    color: white; /* Asegúrate de que las etiquetas sean visibles */
+}
+
+select[multiple] {
+    height: auto; /* Ajusta la altura del select múltiple para que se ajuste al contenido */
 }

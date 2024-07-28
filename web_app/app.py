@@ -1,4 +1,3 @@
-
 import sys
 import os
 import concurrent.futures
@@ -13,18 +12,8 @@ from models import db, User, UserProfile, UserRequest
 from data_extraction.scraper import get_all_content
 from nlp_processing.preprocessing import classify_content
 import datetime
-
-import time
-
-import os
 import openai
-from flask import Flask, render_template, request, redirect, url_for
-from flask_migrate import Migrate
-from models import db, User, UserProfile, UserRequest
-
-import requests
-from bs4 import BeautifulSoup
-
+import time
 
 # Configuración de la clave API de OpenAI
 openai.api_key = 'clave'
@@ -50,7 +39,6 @@ if not os.path.exists(database_path):
 with app.app_context():
     db.create_all()
 
-
 def fetch_and_classify_content():
     print("Iniciando el scraping de contenido...")
     all_content = get_all_content()
@@ -69,25 +57,6 @@ def index():
     except Exception as e:
         print(f"Error al cargar el contenido: {e}")
         return render_template('index.html', classified_content={"historia": [], "matematica": [], "ingles": []})
-
-def scrape_articles(topic):
-    url = f"https://en.wikipedia.org/wiki/{topic.replace(' ', '_')}"
-    response = requests.get(url)
-    soup = BeautifulSoup(response.text, 'html.parser')
-    
-    articles = []
-    for item in soup.select('.mw-parser-output p'):
-        text = item.get_text()
-        if text:
-            articles.append(text.strip())
-    return articles[:5]  # Devuelve los primeros 5 párrafos
-
-@app.route('/')
-def index():
-    topic = request.args.get('topic', 'Mathematics')  # Tema predeterminado
-    articles = scrape_articles(topic)
-    return render_template('index.html', articles=articles, topic=topic)
-
 
 @app.route('/home')
 def home():
@@ -117,11 +86,7 @@ def register():
         interests = ', '.join(interests)
 
         if User.query.filter_by(username=username).first():
-
             return "El usuario ya existe, cambia las credenciales."
-
-            return "El usuario ya existe."
-
 
         new_user = User(username=username, password=password)
         db.session.add(new_user)
@@ -184,11 +149,7 @@ def get_gpt35_response(question):
                 {"role": "user", "content": question}
             ]
         )
-
         return response['choices'][0]['message']['content']
-
-        return response.choices[0].message['content']
-
     except openai.OpenAIError as e:
         print(f"OpenAI API error: {e}")
     except Exception as e:
