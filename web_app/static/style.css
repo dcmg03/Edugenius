@@ -1,101 +1,62 @@
-/* Reset general de estilos */
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-/* Estilos del cuerpo y contenedor principal */
 body {
+    /*color de fondo de la aplicacion*/
+    background-color: #04144b;
+    color: white;
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 20px;
+    margin: 0;
+    padding-top: 70px; /* Ajuste para la navbar fija */
 }
 
-/* Estilos del título */
-h1 {
-    margin-bottom: 20px;
-    color: #333;
-}
-
-/* Estilos del formulario */
-form {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    width: 100%;
-    max-width: 500px;
-}
-
-/* Estilos de los labels y los inputs */
-label {
-    display: block;
-    margin-bottom: 5px;
-    color: #333;
+.container {
+    text-align: center;
 }
 
 input[type="text"],
-input[type="password"],
 input[type="email"],
-input[type="date"],
-select {
+input[type="password"],
+textarea {
     width: 100%;
     padding: 10px;
-    margin-bottom: 15px;
-    border: 1px solid #ccc;
+    margin: 10px 0;
+    border: none;
     border-radius: 5px;
 }
 
-/* Estilos del botón de envío */
-button[type="submit"] {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
+.button, .btn {
+    background-color: white;
+    color: #000000;
+    padding: 10px 20px;
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    font-size: 16px;
+    margin-top: 10px;
 }
 
-button[type="submit"]:hover {
-    background-color: #0056b3;
+.button:hover, .btn:hover {
+    background-color: #F7F9F9;
 }
 
-/* Estilos para la animación de carga */
-#loading {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgba(255, 255, 255, 0.8);
-    z-index: 1000;
+.card {
+    background-color: white;
+    color: #000000;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
+    margin-top: 50px;
 }
 
-.spinner {
-    border: 16px solid #f3f3f3;
-    border-radius: 50%;
-    border-top: 16px solid #3498db;
-    width: 120px;
-    height: 120px;
-    -webkit-animation: spin 2s linear infinite; /* Safari */
-    animation: spin 2s linear infinite;
+.card-body {
+    text-align: left;
 }
 
-@-webkit-keyframes spin {
-    0% { -webkit-transform: rotate(0deg); }
-    100% { -webkit-transform: rotate(360deg); }
+.form-group label {
+    color: #000000;
 }
 
-@keyframes spin {
-    0% { transform: rotate(0deg); }
-    100% { transform: rotate(360deg); }
+.response {
+    background-color: white;
+    color: #000000;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgb(0, 0, 0);
 }

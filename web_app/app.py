@@ -86,7 +86,7 @@ def register():
         interests = ', '.join(interests)
 
         if User.query.filter_by(username=username).first():
-            return "El usuario ya existe, Cambia las credenciales.."
+            return "El usuario ya existe, cambia las credenciales."
 
         new_user = User(username=username, password=password)
         db.session.add(new_user)

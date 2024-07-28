@@ -3,17 +3,27 @@
 {% block title %}Bienvenido - EduGenius{% endblock %}
 
 {% block content %}
-<h1>Bienvenido a EduGenius, {{ username }}!</h1>
-<p>Has iniciado sesión con éxito.</p>
+<div class="container">
+    <div class="card mt-5">
+        <div class="card-body">
+            <h1 class="card-title">Bienvenido a EduGenius, {{ username }}!</h1>
+            <p class="card-text">Has iniciado sesión con éxito.</p>
 
-<form action="{{ url_for('ask_question', username=username) }}" method="post">
-    <label for="question">Escribe tu pregunta:</label>
-    <textarea id="question" name="question" rows="4" cols="50"></textarea>
-    <button type="submit" class="btn btn-primary mt-2">Enviar Pregunta</button>
-</form>
+            <form action="{{ url_for('result', username=username) }}" method="post">
+                <div class="form-group">
+                    <label for="question">Escribe tu pregunta:</label>
+                    <textarea id="question" name="question" class="form-control" rows="4"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary mt-2">Enviar Pregunta</button>
+            </form>
+        </div>
+    </div>
 
-{% if response %}
-    <h2>Respuesta:</h2>
-    <p>{{ response }}</p>
-{% endif %}
+    {% if response %}
+    <div class="response mt-4">
+        <h2>Respuesta:</h2>
+        <p>{{ response }}</p>
+    </div>
+    {% endif %}
+</div>
 {% endblock %}
