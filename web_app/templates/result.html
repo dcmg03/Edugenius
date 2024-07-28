@@ -1,29 +1,25 @@
 {% extends "base.html" %}
 
-{% block title %}Bienvenido - EduGenius{% endblock %}
+{% block title %}Resultados{% endblock %}
 
 {% block content %}
-<div class="container">
-    <div class="card mt-5">
-        <div class="card-body">
-            <h1 class="card-title">Bienvenido a EduGenius, {{ username }}!</h1>
-            <p class="card-text">Has iniciado sesión con éxito.</p>
-
-            <form action="{{ url_for('result', username=username) }}" method="post">
-                <div class="form-group">
-                    <label for="question">Escribe tu pregunta:</label>
-                    <textarea id="question" name="question" class="form-control" rows="4"></textarea>
-                </div>
-                <button type="submit" class="btn btn-primary mt-2">Enviar Pregunta</button>
-            </form>
-        </div>
-    </div>
-
-    {% if response %}
-    <div class="response mt-4">
-        <h2>Respuesta:</h2>
-        <p>{{ response }}</p>
-    </div>
-    {% endif %}
+<div class="text-center py-8">
+    <h1 class="text-4xl font-bold">Resultados</h1>
+    <p class="mt-4 text-xl">Bienvenido, {{ username }}!</p>
 </div>
+<form method="POST" action="{{ url_for('ask_question', username=username) }}" class="w-full max-w-sm mx-auto bg-white p-8 rounded shadow">
+    <div class="mb-4">
+        <label for="question" class="block text-gray-700 font-bold mb-2">Pregunta:</label>
+        <input type="text" id="question" name="question" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    </div>
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Enviar</button>
+    </div>
+</form>
+{% if response %}
+<div class="response mt-8">
+    <h2 class="text-2xl font-semibold mb-4">Respuesta:</h2>
+    <p>{{ response }}</p>
+</div>
+{% endif %}
 {% endblock %}

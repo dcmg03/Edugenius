@@ -3,37 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Edugenius{% endblock %}</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>{% block title %}EduGenius{% endblock %}</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/alpinejs/2.8.2/alpine.js" defer></script>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-        <a class="navbar-brand" href="#">Edugenius</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/login">Ingresar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/register">Registrar</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/home">Inicio</a>
-                </li>
-            </ul>
+<body class="bg-blue-900 text-white font-sans antialiased">
+    <nav class="bg-blue-800 p-4 fixed w-full top-0 z-10">
+        <div class="container mx-auto flex justify-between items-center">
+            <a class="text-white text-2xl font-bold" href="/">EduGenius</a>
+            <div>
+                <a class="text-white px-4 py-2 hover:bg-blue-700 rounded" href="/home">Inicio</a>
+                <a class="text-white px-4 py-2 hover:bg-blue-700 rounded" href="/login">Ingresar</a>
+                <a class="text-white px-4 py-2 hover:bg-blue-700 rounded" href="/register">Registrar</a>
+            </div>
         </div>
     </nav>
 
-    <div class="container main-container" style="padding-top: 70px;">
+    <div class="container mx-auto pt-24">
         {% block content %}{% endblock %}
     </div>
-
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

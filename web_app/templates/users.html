@@ -1,27 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Usuarios Registrados</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-<h1>Usuarios Registrados</h1>
-<table>
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Nombre de Usuario</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for user in users %}
-        <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.username }}</td>
-        </tr>
-        {% endfor %}
-    </tbody>
-</table>
-</body>
-</html>
+{% extends "base.html" %}
+
+{% block title %}Usuarios{% endblock %}
+
+{% block content %}
+<div class="text-center py-8">
+    <h1 class="text-4xl font-bold">Usuarios Registrados</h1>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    {% for user in users %}
+    <div class="card p-4">
+        <h2 class="text-2xl font-semibold mb-4">{{ user.username }}</h2>
+        <p>Email: {{ user.profile.email }}</p>
+        <p>Fecha de nacimiento: {{ user.profile.birthdate }}</p>
+        <p>Género: {{ user.profile.gender }}</p>
+        <p>Intereses: {{ user.profile.interests }}</p>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

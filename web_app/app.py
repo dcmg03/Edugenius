@@ -1,26 +1,26 @@
 import sys
 import os
 import concurrent.futures
-from tqdm import tqdm
+from flask import Flask, render_template, request, redirect, url_for
+from flask_migrate import Migrate
+from flask_socketio import SocketIO
+from models import db, User, UserProfile, UserRequest
+from dotenv import load_dotenv
+import datetime
+import openai
 
 # Agrega el directorio raíz del proyecto a sys.path
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
-from flask import Flask, render_template, request, redirect, url_for
-from flask_migrate import Migrate
-from models import db, User, UserProfile, UserRequest
 from data_extraction.scraper import get_all_content
 from nlp_processing.preprocessing import classify_content
-import datetime
-import openai
-import time
 
-from dotenv import load_dotenv
 # Configuración de la clave API de OpenAI
 load_dotenv()
 openai.api_key = os.getenv('API_KEY')
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
+socketio = SocketIO(app)
 basedir = os.path.abspath(os.path.dirname(__file__))
 instance_path = os.path.join(basedir, 'instance')
 database_path = os.path.join(instance_path, 'users.db')
@@ -41,6 +41,8 @@ if not os.path.exists(database_path):
 with app.app_context():
     db.create_all()
 
+executor = concurrent.futures.ThreadPoolExecutor()
+
 def fetch_and_classify_content():
     print("Iniciando el scraping de contenido...")
     all_content = get_all_content()
@@ -51,10 +53,9 @@ def fetch_and_classify_content():
 
 @app.route('/')
 def index():
+    future = executor.submit(fetch_and_classify_content)
     try:
-        with concurrent.futures.ThreadPoolExecutor() as executor:
-            future = executor.submit(fetch_and_classify_content)
-            classified_content = future.result()
+        classified_content = future.result()
         return render_template('index.html', classified_content=classified_content)
     except Exception as e:
         print(f"Error al cargar el contenido: {e}")
@@ -159,4 +160,4 @@ def get_gpt35_response(question):
     return "Lo siento, no puedo responder tu pregunta en este momento."
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    socketio.run(app, debug=True)

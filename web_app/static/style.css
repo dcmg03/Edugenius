@@ -1,10 +1,9 @@
 body {
-    /*color de fondo de la aplicacion*/
     background-color: #04144b;
     color: white;
     font-family: Arial, sans-serif;
     margin: 0;
-    padding-top: 70px; /* Ajuste para la navbar fija */
+    padding-top: 70px;
 }
 
 .container {
@@ -26,9 +25,9 @@ select {
     font-size: 16px;
 }
 
-.button, .btn {
-    background-color: white;
-    color: #000000;
+.btn {
+    background-color: #3498db;
+    color: white;
     padding: 10px 20px;
     border: none;
     border-radius: 5px;
@@ -36,8 +35,8 @@ select {
     margin-top: 10px;
 }
 
-.button:hover, .btn:hover {
-    background-color: #F7F9F9;
+.btn:hover {
+    background-color: #2980b9;
 }
 
 .card {
@@ -45,8 +44,8 @@ select {
     color: #000000;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
-    margin-top: 50px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
 }
 
 .card-body {
@@ -62,7 +61,7 @@ select {
     color: #000000;
     padding: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgb(0, 0, 0);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 label {
@@ -70,9 +69,9 @@ label {
     font-weight: bold;
     display: block;
     text-align: left;
-    color: white; /* Asegúrate de que las etiquetas sean visibles */
+    color: white;
 }
 
 select[multiple] {
-    height: auto; /* Ajusta la altura del select múltiple para que se ajuste al contenido */
+    height: auto;
 }

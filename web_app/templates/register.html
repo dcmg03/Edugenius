@@ -1,32 +1,59 @@
 {% extends "base.html" %}
 
-{% block title %}Crear Cuenta - Edugenius{% endblock %}
+{% block title %}Registrar{% endblock %}
 
 {% block content %}
-<div class="container">
-    <h1>Eugenius</h1>
-    <h2>Create new Account</h2>
-    <p>Already Registered? <a href="{{ url_for('login') }}" style="color: white; text-decoration: underline;">Login</a></p>
-    <form method="post" action="{{ url_for('register') }}">
-        <input type="text" name="username" placeholder="Name" required>
-        <input type="email" name="email" placeholder="Email" required>
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="date" name="birthdate" placeholder="Date of Birth" required>
-
-        <label for="gender">Gender:</label>
-        <select name="gender" required>
-            <option value="">Select your gender</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
-        </select>
-
-        <label for="interests">Select your interests:</label><br>
-        <input type="checkbox" name="interests" value="Ingles"> Ingles<br>
-        <input type="checkbox" name="interests" value="Matematicas"> Matematicas<br>
-        <input type="checkbox" name="interests" value="Historia"> Historia<br>
-
-        <button type="submit" class="button">Sign Up</button>
-    </form>
+<div class="text-center py-8">
+    <h1 class="text-4xl font-bold">Registrar</h1>
 </div>
+<form method="POST" class="w-full max-w-sm mx-auto bg-white p-8 rounded shadow">
+    <div class="mb-4">
+        <label for="username" class="block text-gray-700 font-bold mb-2">Nombre de usuario</label>
+        <input type="text" id="username" name="username" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    </div>
+    <div class="mb-4">
+        <label for="password" class="block text-gray-700 font-bold mb-2">Contraseña</label>
+        <input type="password" id="password" name="password" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 mb-3 leading-tight focus:outline-none focus:shadow-outline" required>
+    </div>
+    <div class="mb-4">
+        <label for="email" class="block text-gray-700 font-bold mb-2">Correo electrónico</label>
+        <input type="email" id="email" name="email" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    </div>
+    <div class="mb-4">
+        <label for="birthdate" class="block text-gray-700 font-bold mb-2">Fecha de nacimiento</label>
+        <input type="date" id="birthdate" name="birthdate" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+    </div>
+    <div class="mb-4">
+        <label for="gender" class="block text-gray-700 font-bold mb-2">Género</label>
+        <select id="gender" name="gender" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" required>
+            <option value="male">Masculino</option>
+            <option value="female">Femenino</option>
+            <option value="other">Otro</option>
+        </select>
+    </div>
+    <div class="mb-6">
+        <label for="interests" class="block text-gray-700 font-bold mb-2">Intereses</label>
+        <div x-data="{ open: false }" class="relative">
+            <button type="button" @click="open = !open" class="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline text-left">
+                Seleccionar intereses
+            </button>
+            <div x-show="open" @click.away="open = false" class="absolute mt-1 w-full bg-white rounded shadow-lg z-10">
+                <div class="py-1">
+                    <label class="block text-gray-700">
+                        <input type="checkbox" name="interests" value="history" class="mr-2"> Historia
+                    </label>
+                    <label class="block text-gray-700">
+                        <input type="checkbox" name="interests" value="math" class="mr-2"> Matemática
+                    </label>
+                    <label class="block text-gray-700">
+                        <input type="checkbox" name="interests" value="english" class="mr-2"> Inglés
+                    </label>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="flex items-center justify-between">
+        <button type="submit" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline">Registrar</button>
+    </div>
+</form>
 {% endblock %}

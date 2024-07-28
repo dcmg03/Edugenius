@@ -1,23 +1,18 @@
 document.addEventListener("DOMContentLoaded", function() {
-    var loader = document.getElementById("loader");
-    var content = document.getElementById("content");
-    var loadingPercentage = document.getElementById("loading-percentage");
+    const socket = io();
 
-    function updateLoadingPercentage(percentage) {
-        loadingPercentage.innerText = `${percentage}%`;
-    }
+    socket.on('update_progress', function(data) {
+        const loader = document.getElementById("loader");
+        const content = document.getElementById("content");
+        const percentage = document.getElementById("loading-percentage");
 
-    var socket = io.connect('http://' + document.domain + ':' + location.port);
-
-    socket.on('progress', function(data) {
-        updateLoadingPercentage(data.progress);
-    });
-
-    fetch('/load_content')
-        .then(response => response.json())
-        .then(data => {
+        if (data.progress < 100) {
+            loader.style.display = "block";
+            content.style.display = "none";
+            percentage.innerText = `${data.progress.toFixed(2)}%`;
+        } else {
             loader.style.display = "none";
             content.style.display = "block";
-            updateLoadingPercentage(100); // Asegúrate de mostrar 100% al final
-        });
+        }
+    });
 });
