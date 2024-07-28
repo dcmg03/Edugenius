@@ -15,8 +15,10 @@ import datetime
 import openai
 import time
 
+from dotenv import load_dotenv
 # Configuración de la clave API de OpenAI
-openai.api_key = 'clave'
+load_dotenv()
+openai.api_key = os.getenv('API_KEY')
 
 app = Flask(__name__, static_folder='static', static_url_path='/static')
 basedir = os.path.abspath(os.path.dirname(__file__))
